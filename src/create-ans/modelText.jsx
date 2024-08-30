@@ -1,0 +1,1 @@
+export const AI_PROMPT = 'Give  solution to the given math problem and also provide detail explaination. The math problem is: {inputText}' 
