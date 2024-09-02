@@ -1,1 +1,3 @@
-export const AI_PROMPT = 'Give  solution to the given math problem and also provide detail explaination. The math problem is: {inputText}' 
+// AIPrompt.jsx
+export const AI_PROMPT = 'Give a two line answer to the given math problem {inputText}';
+export const AI_PROMPT2 = 'Now for the given math problem give me a very thorough and detailed math explaination {inputText}';

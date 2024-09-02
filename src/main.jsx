@@ -5,6 +5,7 @@ import './index.css'
 import Header from './Components/Header.jsx'
 import {createBrowserRouter,RouterProvider,} from "react-router-dom";
 import Solution from './create-ans/Solution.jsx'
+import Footer from './Components/Footer.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,8 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Header/>
+    
     <RouterProvider router={router} />
+    
   </StrictMode>,
 );

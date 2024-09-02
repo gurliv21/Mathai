@@ -20,7 +20,7 @@ function App() {
 
         </section>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 }

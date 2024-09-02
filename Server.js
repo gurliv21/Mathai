@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import cors from 'cors';  // Keep this import
+import cors from 'cors';  
 
 dotenv.config();
 
@@ -47,4 +47,5 @@ app.post('/gemini', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+
 });
