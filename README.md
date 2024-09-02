@@ -88,7 +88,7 @@ MathAI is a web application that leverages AI to provide solutions and explanati
 
     **Request Body:**
     
-    - `message` (optional): A string containing the math question.
+    - `message`: A string containing the math question.
     - `image` (optional): A file upload containing the image of the math problem.
 
     **Response:**
