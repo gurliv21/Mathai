@@ -37,14 +37,14 @@ MathAI is a web application that leverages AI to provide solutions and explanati
     cd MathAI
     ```
 
-2. **Install Backend Dependencies:**
+2. **Install  Dependencies:**
 
-    Navigate to the `backend` directory and install the required packages:
+   The project uses npm  to manage dependencies.
 
     ```bash
-    cd backend
     npm install
     ```
+    This will install all the dependencies specified in package.json, including both regular dependencies and development dependencies.
 
 3. **Set Up Environment Variables:**
 
@@ -60,16 +60,8 @@ MathAI is a web application that leverages AI to provide solutions and explanati
     node Server.js
     ```
 
-5. **Install Frontend Dependencies:**
 
-    Navigate to the `frontend` directory and install the required packages:
-
-    ```bash
-    cd ../frontend
-    npm install
-    ```
-
-6. **Start the Frontend Application:**
+5. **Start the Frontend Application:**
 
     ```bash
     npm run dev
