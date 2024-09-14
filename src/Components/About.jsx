@@ -2,10 +2,10 @@ import React from 'react'
 
 function About() {
   return (
-    <div className='my-20 p-2'>
+    <div className='my-20 px-12'>
         <h1 className='font-semibold text-2xl  text-black' >The most accurate AI math solver.</h1>
         <h2 className='font-semibold text-blue-600 mb-16'>Solving Math with Precision 🧠</h2>
-    <div className='text-center grid grid-cols-2 gap-12'>
+    <div className='text-center grid grid-cols-1 md:grid-cols-2  gap-12'>
         
         <div>
             <p className='text-left'>
@@ -22,6 +22,7 @@ function About() {
       
     </div>
     </div>
+
   )
 }
 

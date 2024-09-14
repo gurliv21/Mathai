@@ -2,7 +2,8 @@ import React from 'react'
 
 function Info() {
   return (
-    <div className='grid grid-cols-3 gap-8 w-full max-w-9xl mx-auto p-6 m-9 mb-9'>
+    <div className='grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 w-full max-w-9xl mx-auto p-6 m-9 mb-9'>
+
   <div className='bg-white p-4 rounded-2xl hover:shadow-lg hover:scale-105 transition-transform duration-300 ease-in-out shadow-md shadow-blue-200'>
     <h2 className='text-xl'>÷</h2>
     <h3 className='text-xl font-bold'>Equations</h3>

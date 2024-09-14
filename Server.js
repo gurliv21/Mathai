@@ -14,6 +14,10 @@ const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({
   model: 'gemini-1.5-flash',
 });
+if (!apiKey) {
+  console.error('API key not found. Please set GEMINI_API_KEY in your .env file.');
+ 
+}
 
 const generationConfig = {
   temperature: 1,
@@ -47,5 +51,6 @@ app.post('/gemini', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+  
 
 });
