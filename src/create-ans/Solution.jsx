@@ -83,9 +83,7 @@ function Solution() {
           <div className='box my-6 mb-20'>
             <div className='bg-blue-500  flex justify-between p-3'>
               <h2 className='font-semibold text-white text-l'>EXPLANATION</h2>
-              <button className='cursor-pointer'>
-                <i className="fa-solid fa-copy text-white text-xl"></i>
-              </button>
+              
             </div>
             <div>
               {loading ? (
@@ -108,9 +106,7 @@ function Solution() {
           <div className='box '>
             <div className='bg-blue-500  flex justify-between p-3'>
               <h2 className='font-semibold text-white text-l'>ANSWER</h2>
-              <button className='cursor-pointer'>
-                <i className="fa-solid fa-copy text-white text-xl"></i>
-              </button>
+              
             </div>
             <div>
               {loading ? (
