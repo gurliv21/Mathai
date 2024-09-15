@@ -1,11 +1,10 @@
+import { put } from '@vercel/blob';  // Import Vercel Blob Storage
 import { GoogleAIFileManager } from "@google/generative-ai/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { BlobServiceClient } from '@azure/storage-blob';
 import formidable from 'formidable';
 import fs from 'fs';
 import path from 'path';
-const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.BLOB_STORAGE_CONNECTION_STRING);
-const containerClient = blobServiceClient.getContainerClient('your-container-name');
+
 export const config = {
   api: {
     bodyParser: false,
@@ -13,6 +12,7 @@ export const config = {
 };
 
 const apiKey = process.env.GEMINI_API_KEY;
+const blobToken = process.env.BLOB_READ_WRITE_TOKEN; // Fetch the token from environment variables
 const fileManager = new GoogleAIFileManager(apiKey);
 const genAI = new GoogleGenerativeAI(apiKey);
 
@@ -34,27 +34,25 @@ export default async function handler(req, res) {
       try {
         const file = files.image[0];
         const filePath = file.filepath; // Use file.filepath directly
-        const blobClient = containerClient.getBlockBlobClient(`${Date.now()}${path.extname(file.originalFilename)}`);
-        await blobClient.uploadStream(fileStream);
+        const fileStream = fs.createReadStream(filePath); // Create a readable stream for the file
 
-        console.log('File Path:', filePath);
+        // Upload to Vercel Blob Storage
+        const filename = `${Date.now()}${path.extname(file.originalFilename)}`;
+        const blob = await put(filename, fileStream, { access: 'public', token: blobToken }); // Include the token
 
-        if (!fs.existsSync(filePath)) {
-          throw new Error(`File not found: ${filePath}`);
-        }
+        console.log('Blob URL:', blob.url);
 
-        const uploadResult = await fileManager.uploadFile(filePath, {
-          mimeType: file.mimetype,
-          displayName: file.originalFilename,
-        });
+        // Create a reference URL for the uploaded file
+        const fileUri = blob.url;
 
+        // Generate content using Google Generative AI
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
         const result = await model.generateContent([
           "Solve the math problem in the image ",
           {
             fileData: {
-              fileUri: uploadResult.file.uri,
-              mimeType: uploadResult.file.mimeType,
+              fileUri: fileUri,
+              mimeType: file.mimetype,
             },
           },
         ]);
