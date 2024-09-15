@@ -19,6 +19,7 @@ function App() {
           <About />
 
         </section>
+        
       </div>
       <Footer/>
     </div>

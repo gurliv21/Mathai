@@ -8,22 +8,24 @@ function HomePage() {
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
-    console.log(inputText);
   };
 
-  const handleSolveClick = async () => {
-    if (!inputText.trim()) {
-      alert("Please enter text before solving.");
-      return;
+  const handleSolveClick = () => {
+    if (selectedImage) {
+      // Navigate to SolutionImage component if an image is uploaded
+      navigate('/solution-image', { state: { selectedImage, inputText } });
+    } else if (inputText.trim()) {
+      // Navigate to Solution component if there's text input
+      navigate('/create-ans', { state: { inputText } });
     } else {
-      navigate('/create-ans', { state: { inputText, selectedImage } });
+      alert("Please enter text or upload an image before solving.");
     }
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setSelectedImage(URL.createObjectURL(file));
+      setSelectedImage(file);
     }
   };
 
@@ -40,17 +42,13 @@ function HomePage() {
           className='flex-grow p-2 mr-4 outline-none'
         />
 
-        <button
+<button
           onClick={handleSolveClick}
           className='bg-blue-500 text-white font-semibold p-2 rounded-lg flex-shrink-0'
         >
           Solve
         </button>
       </div>
-
-
-
-
 
       <div className='flex flex-col bg-white h-52 border border-dashed border-gray-500 mt-5 w-11/12 lg:w-3/4 md:w-3/4 mx-auto justify-center'>
         {!selectedImage && (
@@ -67,9 +65,9 @@ function HomePage() {
         {selectedImage && (
           <div className='inline-flex justify-center max-w-full max-h-full'>
             <img
-              src={selectedImage}
+              src={URL.createObjectURL(selectedImage)}
               alt="Uploaded Preview"
-              className='object-contain max-w-full max-h-full' // Adjust max-height as needed
+              className='object-contain max-w-full max-h-full'
             />
           </div>
         )}
@@ -78,7 +76,7 @@ function HomePage() {
       <p className='italic text-slate-500'>Free now free forever</p>
 
       <h2 className='text-2xl sm:text-3xl md:text-4xl text-black mt-40 font-semibold'>Save time use MATHAI as an AI math tutor.</h2>
-      <p >Turn hours of frustration into minutes on MATHAI.</p>
+      <p>Turn hours of frustration into minutes on MATHAI.</p>
     </main>
   );
 }

@@ -6,6 +6,7 @@ import Header from './Components/Header.jsx'
 import {createBrowserRouter,RouterProvider,} from "react-router-dom";
 import Solution from './create-ans/Solution.jsx'
 import Footer from './Components/Footer.jsx'
+import SolutionImage from './solution-image/SolutionImage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path:'/create-ans',
     element:<Solution/>,
+  },
+  {
+      path:'/solution-image',
+      element:<SolutionImage/>
   },
 ]);
 

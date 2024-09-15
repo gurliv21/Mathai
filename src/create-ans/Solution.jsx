@@ -28,7 +28,7 @@ function Solution() {
         }
       };
 
-      const apiResponse = await fetch('http://localhost:3000/gemini', options);
+      const apiResponse = await fetch('/api/gemini', options);
       const data = await apiResponse.text();
 
       console.log("API Response: ", data);
