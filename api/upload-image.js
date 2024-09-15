@@ -1,9 +1,11 @@
 import { GoogleAIFileManager } from "@google/generative-ai/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { BlobServiceClient } from '@azure/storage-blob';
 import formidable from 'formidable';
 import fs from 'fs';
 import path from 'path';
-
+const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.BLOB_STORAGE_CONNECTION_STRING);
+const containerClient = blobServiceClient.getContainerClient('your-container-name');
 export const config = {
   api: {
     bodyParser: false,
@@ -17,9 +19,9 @@ const genAI = new GoogleGenerativeAI(apiKey);
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const form = formidable({
-      uploadDir: path.join(process.cwd(), 'tmp'),
+      multiples: true,
+      uploadDir: '/tmp', // Use /tmp directory for temporary storage
       keepExtensions: true,
-      filename: (name, ext, _path, _form) => `${Date.now()}${path.extname(name)}`, // Ensure unique filenames
     });
 
     form.parse(req, async (err, fields, files) => {
@@ -32,6 +34,8 @@ export default async function handler(req, res) {
       try {
         const file = files.image[0];
         const filePath = file.filepath; // Use file.filepath directly
+        const blobClient = containerClient.getBlockBlobClient(`${Date.now()}${path.extname(file.originalFilename)}`);
+        await blobClient.uploadStream(fileStream);
 
         console.log('File Path:', filePath);
 

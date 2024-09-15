@@ -120,7 +120,7 @@ function Solution() {
                   ))}
                 </div>
               ) : (
-                <div className='px-14 py-2 pb-6 preformatted-text font-bold text-center' dangerouslySetInnerHTML={{ __html: responseText1 }} />
+                <div className='px-14  pb-6 preformatted-text font-bold text-center' dangerouslySetInnerHTML={{ __html: responseText1 }} />
               )}
             </div>
           </div>
