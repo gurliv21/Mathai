@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import 'katex/dist/katex.min.css';
-import { BlockMath, InlineMath } from 'react-katex';
 
-// Function to format text with KaTeX rendering support
+
+
 const formatMathText = (text) => {
   return text
-    .replace(/\$\$(.*?)\$\$/g, (_, expression) => `<BlockMath>${expression}</BlockMath>`)  // Block math $$...$$
-    .replace(/\$(.*?)\$/g, (_, expression) => `<InlineMath>${expression}</InlineMath>`)  // Inline math $...$
+   
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')  // Bold text
     .replace(/\n{2,}/g, '<br /><br />')  // Paragraph breaks for double newlines
     .replace(/\n/g, '<br />');  // Line breaks for single newlines
