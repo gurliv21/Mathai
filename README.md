@@ -3,7 +3,7 @@
 MathAI is a web application that leverages AI to provide solutions and explanations for math problems. Users can input text questions and upload images of math problems to receive detailed answers and explanations.
 ## Live Demo
 
-Check out the live version of this project here: [Eclipse AI Live](https://mathai-livid.vercel.app)
+Check out the live version of this project here: [MathAI Live](https://mathai-livid.vercel.app)
 
 ## Features
 
