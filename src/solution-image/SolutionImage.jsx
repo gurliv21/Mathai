@@ -79,7 +79,7 @@ function SolutionImage() {
                   <img
                     src={URL.createObjectURL(selectedImage)}
                     alt="Uploaded Preview"
-                    className='object-contain max-w-32 min-h-10'
+                    className='object-contain max-w-32 min-h-10 max-h-14'
                   />
                 </div>
                 <h1 className='text-xl'>{inputText}</h1>
