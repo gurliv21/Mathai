@@ -33,16 +33,15 @@ function Solution() {
 
       console.log("API Response: ", data);
 
-      const [answer, explanation] = data.split('## Detailed Solution:');
+      const [answer, explanation] = data.split('**Detailed Solution:**');
 
       if (answer && explanation) {
         // Formatting the response text
         const formatText = (text) => {
           return text
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')  
-            .replace(/\*(?!\*)/g, '<br />')
-            .replace('## Concise Answer:', '')                 // Replace single '*' with <br />
-            .replace(/\n/g, '<br />');                         // Handle actual newlines
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Convert **bold** to <strong>bold</strong>
+            .replace(/\*(?!\*)/g, '<br />') // Replace single '*' with <br />
+            .replace(/\n/g, '<br />'); // Handle actual newlines
         };
 
         const formattedAnswer = formatText(answer.trim());
@@ -59,9 +58,6 @@ function Solution() {
       setLoading(false);
     }
   };
-  
-  
-  
 
   useEffect(() => {
     getResponse(); // Fetch response on mount
@@ -81,9 +77,8 @@ function Solution() {
 
           {/* Explanation Section */}
           <div className='box my-6 mb-20'>
-            <div className='bg-blue-500  flex justify-between p-3'>
+            <div className='bg-blue-500 flex justify-between p-3'>
               <h2 className='font-semibold text-white text-l'>EXPLANATION</h2>
-              
             </div>
             <div>
               {loading ? (
@@ -103,10 +98,9 @@ function Solution() {
           </div>
 
           {/* Answer Section */}
-          <div className='box '>
-            <div className='bg-blue-500  flex justify-between p-3'>
+          <div className='box'>
+            <div className='bg-blue-500 flex justify-between p-3'>
               <h2 className='font-semibold text-white text-l'>ANSWER</h2>
-              
             </div>
             <div>
               {loading ? (
@@ -120,7 +114,7 @@ function Solution() {
                   ))}
                 </div>
               ) : (
-                <div className='px-14  pb-6 preformatted-text font-bold text-center' dangerouslySetInnerHTML={{ __html: responseText1 }} />
+                <div className='px-14 pb-6 preformatted-text font-bold text-center' dangerouslySetInnerHTML={{ __html: responseText1 }} />
               )}
             </div>
           </div>
