@@ -1,22 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AI_PROMPT, AI_PROMPT2 } from '../create-ans/modelText';
 
 function HomePage() {
   const [inputText, setInputText] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [answer, setAnswer] = useState('');
+  const [explanation, setExplanation] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     setInputText(e.target.value);
   };
 
+  const getSolution = async () => {
+    if (!inputText.trim()) return;
+
+    setLoading(true);
+    setAnswer('');
+    setExplanation('');
+
+    try {
+      const prompt1 = AI_PROMPT.replace('{inputText}', inputText);
+      const prompt2 = AI_PROMPT2.replace('{inputText}', inputText);
+
+      const response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: [prompt1, prompt2] })
+      });
+
+      const data = await response.text();
+      const [answerPart, explanationPart] = data.split('**Detailed Solution:**');
+
+      if (answerPart && explanationPart) {
+        setAnswer(answerPart.trim());
+        setExplanation(explanationPart.trim());
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSolveClick = () => {
     if (selectedImage) {
-      // Navigate to SolutionImage component if an image is uploaded
       navigate('/solution-image', { state: { selectedImage, inputText } });
     } else if (inputText.trim()) {
-      // Navigate to Solution component if there's text input
-      navigate('/create-ans', { state: { inputText } });
+      getSolution();
     } else {
       alert("Please enter text or upload an image before solving.");
     }
@@ -74,6 +107,47 @@ function HomePage() {
       </div>
 
       <p className='italic text-slate-500'>Free now free forever</p>
+
+      {/* Solution Section */}
+      {(answer || explanation || loading) && (
+        <div className='mt-8 max-w-[800px] mx-auto w-full'>
+          {/* Explanation Section */}
+          <div className='box my-6'>
+            <div className='bg-blue-500 p-3'>
+              <h2 className='font-semibold text-white text-l'>EXPLANATION</h2>
+            </div>
+            <div className='px-14 py-6'>
+              {loading ? (
+                <div className='flex flex-col gap-2'>
+                  {[0, 1, 2].map(val => (
+                    <div key={val} className='rounded-full h-2 bg-slate-400 loading' style={{ animationDelay: `${val * -2}s` }} />
+                  ))}
+                </div>
+              ) : (
+                <div className='preformatted-text'>{explanation}</div>
+              )}
+            </div>
+          </div>
+
+          {/* Answer Section */}
+          <div className='box'>
+            <div className='bg-blue-500 p-3'>
+              <h2 className='font-semibold text-white text-l'>ANSWER</h2>
+            </div>
+            <div className='px-14 py-6'>
+              {loading ? (
+                <div className='flex flex-col gap-2'>
+                  {[0, 1, 2].map(val => (
+                    <div key={val} className='rounded-full h-2 bg-slate-400 loading' style={{ animationDelay: `${val * -2}s` }} />
+                  ))}
+                </div>
+              ) : (
+                <div className='preformatted-text font-bold text-center'>{answer}</div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <h2 className='text-2xl sm:text-3xl md:text-4xl text-black mt-40 font-semibold'>Save time use MATHAI as an AI math tutor.</h2>
       <p>Turn hours of frustration into minutes on MATHAI.</p>
