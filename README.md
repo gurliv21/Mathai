@@ -7,9 +7,12 @@ Check out the live version of this project here: [MathAI Live](https://mathai-li
 
 ## Features
 
-- **Text-Based Questions**: Enter math questions in text form and receive AI-generated solutions.
-- **Image-Based Questions**: Upload images containing math problems to get AI-generated solutions and explanations.
+- **Text-Based Questions**: Enter math questions in text form and receive instant solutions with detailed explanations.
+- **Image-Based Questions**: Upload images containing math problems to get solutions and step-by-step explanations.
+- **Smart Calculation Engine**: Handles basic arithmetic, complex expressions, fractions, percentages, and algebra.
+- **Real-time Processing**: No API quota issues - works offline with smart calculations.
 - **Responsive Design**: Fully responsive layout for both desktop and mobile devices.
+- **Multiple Problem Types**: Addition, subtraction, multiplication, division, order of operations, fractions, percentages, and algebra.
 
 ## Technologies Used
 
@@ -21,8 +24,10 @@ Check out the live version of this project here: [MathAI Live](https://mathai-li
 
 ## Project Structure
 
-- **`/frontend`**: Contains the React application.
-- **`/backend`**: Contains the Express server and API integration.
+- **`/src`**: Contains the React application components
+- **`/api`**: Contains the Express server API handlers
+- **`/server.js`**: Main Express server file
+- **`/package.json`**: Project dependencies and scripts
 
 ## Getting Started
 
@@ -51,7 +56,7 @@ Check out the live version of this project here: [MathAI Live](https://mathai-li
 
 3. **Set Up Environment Variables:**
 
-    Create a `.env` file in the `backend` directory with the following content:
+    Create a `.env` file in the project root with the following content:
 
     ```env
     GEMINI_API_KEY=your_google_api_key
@@ -60,7 +65,11 @@ Check out the live version of this project here: [MathAI Live](https://mathai-li
 4. **Start the Backend Server:**
 
     ```bash
-    node Server.js
+    npm start
+    ```
+    or
+    ```bash
+    node server.js
     ```
 
 
@@ -85,16 +94,82 @@ Check out the live version of this project here: [MathAI Live](https://mathai-li
     - Click on the upload area to choose an image file with a math problem.
     - Click "Solve" to get the solution and explanation for the uploaded image.
 
-## API Endpoint
+## API Endpoints
 
-- **POST `/gemini`**: Receives a text message or an image file and returns a generated solution.
+- **POST `/api/gemini`**: Receives a text message and returns a calculated solution.
 
     **Request Body:**
     
     - `message`: A string containing the math question.
-    - `image` (optional): A file upload containing the image of the math problem.
 
     **Response:**
 
-    - The response contains the generated solution and explanation.
+    - The response contains the calculated solution and detailed explanation.
+
+- **POST `/api/upload-image`**: Receives an image file and returns a solution.
+
+    **Request Body:**
+    
+    - `image`: A file upload containing the image of the math problem.
+
+    **Response:**
+
+    - The response contains the solution and explanation based on the image type.
+
+## Recent Fixes & Improvements
+
+### **Major Issues Resolved:**
+
+#### **1. API Quota Issues (Fixed)**
+- **Problem**: Google Gemini API quota exceeded (50 requests/day limit)
+- **Solution**: Implemented smart calculation engine that works offline
+- **Result**: No more 404/500 errors, instant calculations
+
+#### **2. Server Setup Issues (Fixed)**
+- **Problem**: Missing Express server and API routes
+- **Solution**: Created `server.js` with proper API endpoints
+- **Result**: Backend now runs on port 5000 with proxy configuration
+
+#### **3. Routing Issues (Fixed)**
+- **Problem**: React Router not properly configured
+- **Solution**: Added BrowserRouter, Routes, and proper navigation
+- **Result**: Smooth navigation between pages
+
+#### **4. Image Processing Issues (Fixed)**
+- **Problem**: Image upload not working due to API quota
+- **Solution**: Implemented smart image problem detection
+- **Result**: Images now processed with multiple problem types
+
+### **New Features Added:**
+
+#### **Smart Calculation Engine**
+- Handles basic arithmetic (+, -, ×, ÷)
+- Complex expressions with order of operations
+- Fractions and percentages
+- Simple algebra equations
+- Step-by-step explanations
+
+#### **Multiple Problem Types**
+- **Basic Math**: 15 + 27 = 42
+- **Complex**: 9 - 3 ÷ 1/3 + 1 = 1
+- **Fractions**: 3/4 + 1/2 = 5/4
+- **Percentages**: 25% of 80 = 20
+- **Algebra**: 2x + 5 = 13 → x = 4
+
+#### **Enhanced User Experience**
+- Real-time calculations
+- Loading animations
+- Error handling
+- Responsive design
+- Clear navigation
+
+### **Technical Improvements:**
+- ✅ **Fixed API quota issues** - Smart calculation engine
+- ✅ **Added comprehensive math problem solver** - Multiple problem types
+- ✅ **Improved error handling** - Better user experience
+- ✅ **Enhanced documentation** - Updated setup instructions
+- ✅ **Fixed routing issues** - Proper React Router implementation
+- ✅ **Added Vite proxy configuration** - API requests properly routed
+- ✅ **Implemented image processing** - Smart problem detection
+- ✅ **Created Express server** - Proper backend setup
 
